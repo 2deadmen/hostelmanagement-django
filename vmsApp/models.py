@@ -12,6 +12,15 @@ from django.contrib.auth.base_user import BaseUserManager
 
 
 # Create your models here.
+class Users(models.Model):
+    name = models.CharField(max_length=250)
+    password = models.CharField(max_length=400)
+    gender = models.CharField(max_length=20, choices=(('Male','Male'), ('Female','Female')), default = 'Male')
+    contact = models.CharField(max_length=250, null=True, blank = True)
+    address = models.TextField()
+    date_created = models.DateTimeField(auto_now = True)
+
+
 class Users_request(models.Model):
     name = models.CharField(max_length=250)
     reason = models.CharField(max_length=500)
