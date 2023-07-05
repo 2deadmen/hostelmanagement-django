@@ -12,13 +12,15 @@ from django.contrib.auth.base_user import BaseUserManager
 
 
 # Create your models here.
-class Users(models.Model):
+class Users_request(models.Model):
     name = models.CharField(max_length=250)
     reason = models.CharField(max_length=500)
     location = models.CharField(max_length=500)
     phone = models.CharField(max_length=250, null=True, blank = True)
     date_depart = models.DateTimeField(default = timezone.now)
     date_return = models.DateTimeField(default = timezone.now)
+    state=models.IntegerField(default = 0)
+
 
 
 
