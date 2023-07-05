@@ -32,7 +32,9 @@ def context_data(request):
 def user_home(request):
     if request.method == "POST":
         name = request.POST['name']
-        new_user = Users_request.objects.create(name=name)
+        email = request.POST['email']
+        phone = request.POST['phone']
+        new_user = Users_request.objects.create(name=name, phone = phone)
         new_user.save()
         return redirect('user_home')
     else:

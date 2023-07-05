@@ -29,7 +29,8 @@ class Users_request(models.Model):
     date_depart = models.DateTimeField(default = timezone.now)
     date_return = models.DateTimeField(default = timezone.now)
     state=models.IntegerField(default = 0)
-
+    def __str__(self):
+        return self.name
 
 
 
