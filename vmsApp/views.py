@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from vmsApp import models, forms
+from .models import Users_request
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -29,7 +30,13 @@ def context_data(request):
     
 
 def user_home(request):
-    return render(request, "user_home.html")
+    if request.method == "POST":
+        name = request.POST['name']
+        new_user = Users_request.objects.create(name=name)
+        new_user.save()
+        return redirect('user_home')
+    else:
+        return render(request, "user_home.html")
 
 def userregister(request):
     context = context_data(request)
