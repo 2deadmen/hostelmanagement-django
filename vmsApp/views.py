@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 
 
+
 def context_data(request):
     fullpath = request.get_full_path()
     abs_uri = request.build_absolute_uri()
@@ -26,6 +27,10 @@ def context_data(request):
 
     return context
     
+
+def user_home(request):
+    return render(request, "user_home.html")
+
 def userregister(request):
     context = context_data(request)
     context['topbar'] = False

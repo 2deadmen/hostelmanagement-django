@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'vmsApp.apps.vmsAppConfig',
-    'qr_code',
+    # 'qr_code',
 ]
 
 MIDDLEWARE = [
