@@ -1,6 +1,6 @@
-{% extends 'base.html' %} <!-- If you have a base template, extend it -->
+{% extends 'base.html' %} {%load static %} <!-- If you have a base template, extend it -->
 
-{% block content %}
+{% block pageContent %}
 <section>
   <!-- Button trigger modal -->
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -19,14 +19,39 @@
         </div>
         <div class="modal-body">
           <!-- Modal body content goes here -->
-          <p>This is the modal body.</p>
+          <form method="post">
+            {% csrf_token %} <!-- Add CSRF token for security -->
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <div class="form-group">
+              <label for="email">reason</label>
+              <input type="email" class="form-control" id="reason" name="email">
+            </div>
+            <div class="form-group">
+              <label for="phone">location</label>
+              <input type="text" class="form-control" id="location" name="phone">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" class="form-control" id="phone" name="phone">
+              </div>
+            <div class="form-group">
+              <label for="dob">Date of departure</label>
+              <input type="date" class="form-control" id="dob" name="dob">
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of returning</label>
+                <input type="date" class="form-control" id="dob" name="dob">
+              </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>  
+        </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save Changes</button>
-        </div>
+       
       </div>
     </div>
   </div>
-</section>
+</section>  
 {% endblock %}
