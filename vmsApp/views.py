@@ -33,7 +33,7 @@ def context_data(request):
 def user_home(request):
     username="ho"
     data=Users_request.objects.filter(name=username )
-    print(data)
+    # print(data.date_return)
 
     
     if request.method == "POST":
