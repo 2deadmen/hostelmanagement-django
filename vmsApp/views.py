@@ -10,6 +10,7 @@ from .models import Users_request, Users
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+import re
 
 
 
@@ -31,6 +32,12 @@ def context_data(request):
     
 
 def user_home(request):
+    username="ho"
+    # request.user.username
+    data=Users_request.objects.filter(name=username )
+    # print(data.date_return)
+
+    
     if request.method == "POST":
         # name = request.POST['name']
         reason = request.POST['reason']
@@ -42,17 +49,18 @@ def user_home(request):
         # auth.login(request, user)
         new_user = Users_request.objects.create(name=request.user.username, phone = phone, reason = reason, location = location, date_depart =date_depart, date_return = date_return)
         new_user.save()
-        
+        # request.user.username
         messages.info(request, "Sent successfully")
         return redirect('user_home')
     else:
-        return render(request, "user_home.html")
+        return render(request, "user_home.html", {'data': data})
     
 
 def signup(request):
     if request.method == "POST":
         username = request.POST['name']
         password = request.POST['password']
+        password2 = request.POST['password2']
         gender = request.POST['gender']
         contact = request.POST['contact']
         add = request.POST['address']
@@ -60,14 +68,25 @@ def signup(request):
 
         if User.objects.filter(username=username).exists():
             messages.info(request, "Username exists")
+            return redirect('signup')
+            
         else:
+         
+         if password != password2:
+           messages.info(request, "password doesn't match")
+           return redirect('signup')
+         elif len(password) >= 6 and re.search("^[a-zA-Z0-9]+", password) and re.search("[a-z]+", password) and re.search("[A-Z]+", password) and re.search("[0-9]+", password):
 
-            user = User.objects.create_user(username=username, password=password)
-            # user.save()
-            user_model = User.objects.get(username=username)          
+               user = User.objects.create_user(username=username, password=password)
+               # user.save()
+               user_model = User.objects.get(username=username)          
 
-            new_user = Users.objects.create(name = user_model, gender = gender, contact = contact, add = add, date_created = date_created)
-            new_user.save()
+               new_user = Users.objects.create(name = user_model, gender = gender, contact = contact, add = add, date_created = date_created)
+               new_user.save()
+               messages.info(request, "signup successful")
+               return redirect('signup')
+         else:
+            messages.info(request, "Password must contain one uppercase one lowercase one digit and min 6 digit")
             return redirect('signup')
 
     else:
@@ -199,6 +218,11 @@ def home(request):
     year = date.strftime("%Y")
     month = date.strftime("%m")
     day = date.strftime("%d")
+    username="ho"
+    context['reqs']= Users_request.objects.filter(state="Pending" )
+    
+    # request.user.username
+  
     context['visitors'] = models.Visitors.objects.filter(
                         date_added__year = year,
                         date_added__month = month,

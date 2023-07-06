@@ -11,6 +11,24 @@
   <div class="alert alert-success" role="alert"></div>
   {% endfor %}
 
+ <div class="row">
+  {% for item in data %}
+  <div class="card col-md-4 m-1" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title"><p> {{ item.name }}</p></h5>
+      <p class="card-text"> <p>reason: {{ item.reason }}</p></p>
+      <p class="card-text"><p>phone: {{ item.phone }}</p></p>
+      <p class="card-text">     <p>location: {{ item.location }}</p></p>
+      <p class="card-text"><p>dod: {{ item.date_depart|date:"F d, Y" }}</p></p>
+      <p class="card-text"><p>dor: {{ item.date_return |date:"F d, Y" }}</p></p>
+    
+      
+    </div>
+  </div>
+
+{% endfor %}
+
+ </div>
   <!-- Modal -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -25,6 +43,10 @@
           <!-- Modal body content goes here -->
           <form action='' method="post">
             {% csrf_token %} <!-- Add CSRF token for security -->
+<<<<<<< HEAD
+=======
+           
+>>>>>>> 435a115c7da7ccf4c19ea487a11b21f19e6b37dd
             <div class="form-group">
               <label for="email">reason</label>
               <input type="text" class="form-control" id="reason" name="reason">
