@@ -38,5 +38,5 @@ urlpatterns = [
     path('report',views.report,name='report-page'),
     path('signup',views.signup,name='signup'),
     path('signin',views.signin,name='signin'),
-
+    path('forgot_pass',views.forgot_pass,name='forgot_pass'),
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

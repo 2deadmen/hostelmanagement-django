@@ -29,7 +29,7 @@
             {% endfor %}
             <div class="card-body">
                 <div class="container-fluid">
-                    <form id="login-user" action="" method="POST">
+                    <form id="signin" action="" method="POST">
                         {% csrf_token %}
                         <div class="mdc-layout-grid">
                             <div class="mdc-layout-grid__inner">
@@ -46,11 +46,17 @@
                                         <button class="btn btn-sm rounded-0 btn-primary">
                                             Login
                                         </button>
+                                                                          
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </form>  
+                    <a href="forgot_pass">
+                        <button class="btn btn-sm rounded-0 btn-primary">
+                            Forgot Password?
+                        </button> 
+                    </a>
                 </div>
             </div>
         </div>
