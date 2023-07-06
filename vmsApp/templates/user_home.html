@@ -25,10 +25,10 @@
           <!-- Modal body content goes here -->
           <form action='' method="post">
             {% csrf_token %} <!-- Add CSRF token for security -->
-             <div class="form-group">
+             {% comment %} <div class="form-group">
               <label for="name">Name</label>
               <input type="text" class="form-control" id="name" name="name">
-            </div> 
+            </div>  {% endcomment %}
             <div class="form-group">
               <label for="email">reason</label>
               <input type="text" class="form-control" id="reason" name="reason">
