@@ -1,11 +1,12 @@
 import datetime
 from django.shortcuts import redirect, render
+from django.contrib.auth.models import User, auth
 import json
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from vmsApp import models, forms
-from .models import Users_request
+from .models import Users_request, Users
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -37,11 +38,43 @@ def user_home(request):
         location = request.POST['location']
         date_depart = request.POST['dod']
         date_return = request.POST['dor']
-        new_user = Users_request.objects.create(name=name, phone = phone, reason = reason, location = location, date_depart =date_depart, date_return = date_return)
+        user = auth.authenticate(username=name)
+        auth.login(request, user)
+        new_user = Users_request.objects.create(name=request.user.username, phone = phone, reason = reason, location = location, date_depart =date_depart, date_return = date_return)
         new_user.save()
+        
+        messages.info(request, "Sent successfully")
+        auth.logout(request)
         return redirect('user_home')
     else:
         return render(request, "user_home.html")
+    
+
+def signup(request):
+    if request.method == "POST":
+        username = request.POST['name']
+        password = request.POST['password']
+        gender = request.POST['gender']
+        contact = request.POST['contact']
+        add = request.POST['address']
+        date_created = datetime.datetime.now
+
+        if User.objects.filter(username=username).exists():
+            messages.info(request, "Username exists")
+        else:
+
+            user = User.objects.create_user(username=username, password=password)
+            # user.save()
+            user_model = User.objects.get(username=username)          
+
+            new_user = Users.objects.create(name = user_model, gender = gender, contact = contact, add = add, date_created = date_created)
+            new_user.save()
+            return redirect('signup')
+
+    else:
+        return render(request, "signup.html")
+
+
 
 def userregister(request):
     context = context_data(request)

@@ -7,18 +7,21 @@ from django.dispatch import receiver
 # from PIL import Image
 from django.contrib.auth.models import User
 from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth import get_user_model
 
-
+User = get_user_model()
 
 
 # Create your models here.
 class Users(models.Model):
-    name = models.CharField(max_length=250)
-    password = models.CharField(max_length=400)
+    name = models.ForeignKey(User, on_delete=models.CASCADE)
+    # password = models.CharField(max_length=400)
     gender = models.CharField(max_length=20, choices=(('Male','Male'), ('Female','Female')), default = 'Male')
     contact = models.CharField(max_length=250, null=True, blank = True)
-    address = models.TextField()
+    add = models.CharField(max_length=2000)
     date_created = models.DateTimeField(auto_now = True)
+    def __str__(self):
+        return self.name.username
 
 
 class Users_request(models.Model):
@@ -28,7 +31,7 @@ class Users_request(models.Model):
     phone = models.CharField(max_length=250, null=True, blank = True)
     date_depart = models.DateTimeField(default = timezone.now)
     date_return = models.DateTimeField(default = timezone.now)
-    state=models.IntegerField(default = 0)
+    state=models.CharField(max_length=200, default='Pending')
     def __str__(self):
         return self.name
 
