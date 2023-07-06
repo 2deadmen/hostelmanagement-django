@@ -32,22 +32,23 @@ def context_data(request):
 
 def user_home(request):
     username="ho"
+    # request.user.username
     data=Users_request.objects.filter(name=username )
     # print(data.date_return)
 
     
     if request.method == "POST":
-        name = request.POST['name']
+        name ="ho"
         reason = request.POST['reason']
         phone = request.POST['phone']
         location = request.POST['location']
         date_depart = request.POST['dod']
         date_return = request.POST['dor']
-        user = auth.authenticate(username=name)
-        auth.login(request, user)
-        new_user = Users_request.objects.create(name=request.user.username, phone = phone, reason = reason, location = location, date_depart =date_depart, date_return = date_return)
+        # user = auth.authenticate(username=name)
+        # auth.login(request, user)
+        new_user = Users_request.objects.create(name=name, phone = phone, reason = reason, location = location, date_depart =date_depart, date_return = date_return)
         new_user.save()
-        
+        # request.user.username
         messages.info(request, "Sent successfully")
         auth.logout(request)
         return redirect('user_home')
@@ -188,6 +189,11 @@ def home(request):
     year = date.strftime("%Y")
     month = date.strftime("%m")
     day = date.strftime("%d")
+    username="ho"
+    context['reqs']= Users_request.objects.filter(state="Pending" )
+    
+    # request.user.username
+  
     context['visitors'] = models.Visitors.objects.filter(
                         date_added__year = year,
                         date_added__month = month,
