@@ -12,10 +12,11 @@
   {% endfor %}
 
  <div class="row">
+  <div style="background-color:aliceblue"><h1 align="center" style="color:black">REQUESTS</h1></div>
   {% for item in data %}
   <div class="card col-md-4 m-1" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title"><p> {{ item.name }}</p></h5>
+      <!-- <h5 class="card-title"><p> {{ item.nam }}</p></h5> -->
       <p class="card-text"> <p>reason: {{ item.reason }}</p></p>
       <p class="card-text"><p>phone: {{ item.phone }}</p></p>
       <p class="card-text">     <p>location: {{ item.location }}</p></p>

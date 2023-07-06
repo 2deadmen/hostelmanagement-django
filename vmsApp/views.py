@@ -31,8 +31,8 @@ def context_data(request):
     
 
 def user_home(request):
-    username="ho"
-    # request.user.username
+    username=request.user.username
+    # 
     data=Users_request.objects.filter(name=username )
     # print(data.date_return)
 
@@ -74,7 +74,7 @@ def signup(request):
 
             new_user = Users.objects.create(name = user_model, gender = gender, contact = contact, add = add, date_created = date_created)
             new_user.save()
-            return redirect('user_home')
+            return redirect('signin')
 
     else:
         return render(request, "signup.html")
@@ -90,7 +90,7 @@ def signin(request):
 
       if user is not None:
          auth.login(request, user)
-         return redirect('/')
+         return redirect('user_home')
       else:
          messages.info(request, 'Credentials Invalid')
          return redirect('signin')
