@@ -11,6 +11,26 @@
   <div class="alert alert-success" role="alert"></div>
   {% endfor %}
 
+  {% for item in data %}
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title"><p> {{ item.name }}</p></h5>
+      <p class="card-text"> <p>reason: {{ item.reason }}</p></p>
+      <p class="card-text"><p>phone: {{ item.phone }}</p></p>
+      <p class="card-text">     <p>location: {{ item.location }}</p></p>
+      <p class="card-text"><p>dod: {{ item.dod }}</p></p>
+      <p class="card-text"><p>dor: {{ item.dor }}</p></p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+    
+   
+    
+
+    
+    
+{% endfor %}
+
   <!-- Modal -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -25,10 +45,7 @@
           <!-- Modal body content goes here -->
           <form action='' method="post">
             {% csrf_token %} <!-- Add CSRF token for security -->
-             <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" class="form-control" id="name" name="name">
-            </div> 
+           
             <div class="form-group">
               <label for="email">reason</label>
               <input type="text" class="form-control" id="reason" name="reason">

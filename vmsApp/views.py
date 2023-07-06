@@ -31,6 +31,11 @@ def context_data(request):
     
 
 def user_home(request):
+    username="ho"
+    data=Users_request.objects.filter(name=username )
+    print(data)
+
+    
     if request.method == "POST":
         name = request.POST['name']
         reason = request.POST['reason']
@@ -47,7 +52,7 @@ def user_home(request):
         auth.logout(request)
         return redirect('user_home')
     else:
-        return render(request, "user_home.html")
+        return render(request, "user_home.html", {'data': data})
     
 
 def signup(request):
@@ -69,7 +74,7 @@ def signup(request):
 
             new_user = Users.objects.create(name = user_model, gender = gender, contact = contact, add = add, date_created = date_created)
             new_user.save()
-            return redirect('signup')
+            return redirect('user_home')
 
     else:
         return render(request, "signup.html")
