@@ -38,7 +38,7 @@ def user_home(request):
 
     
     if request.method == "POST":
-        name ="ho"
+        # name = request.POST['name']
         reason = request.POST['reason']
         phone = request.POST['phone']
         location = request.POST['location']
@@ -46,11 +46,10 @@ def user_home(request):
         date_return = request.POST['dor']
         # user = auth.authenticate(username=name)
         # auth.login(request, user)
-        new_user = Users_request.objects.create(name=name, phone = phone, reason = reason, location = location, date_depart =date_depart, date_return = date_return)
+        new_user = Users_request.objects.create(name=request.user.username, phone = phone, reason = reason, location = location, date_depart =date_depart, date_return = date_return)
         new_user.save()
         # request.user.username
         messages.info(request, "Sent successfully")
-        auth.logout(request)
         return redirect('user_home')
     else:
         return render(request, "user_home.html", {'data': data})
@@ -79,8 +78,25 @@ def signup(request):
 
     else:
         return render(request, "signup.html")
+    
 
+def signin(request):
 
+   if request.method == 'POST':
+      username = request.POST['username']
+      password = request.POST['password']
+
+      user = auth.authenticate(username=username, password=password)
+
+      if user is not None:
+         auth.login(request, user)
+         return redirect('/')
+      else:
+         messages.info(request, 'Credentials Invalid')
+         return redirect('signin')
+
+   else:
+       return render(request, 'signin.html')
 
 def userregister(request):
     context = context_data(request)
