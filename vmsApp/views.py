@@ -29,11 +29,37 @@ def context_data(request):
 
     return context
     
+def accept(request):
+    if request.method == "POST":
+        # name = request.POST['name']
+        reason = request.POST['state']
+        dataobj=Users_request.objects.filter(id=reason)
+        dataobj.update(state="Accepted")
+        return redirect('/')
+    else:
+        return redirect('/')
+    
+def allrequests(request):
+    # 
+    data=Users_request.objects.all().order_by('-id')
+    return render(request, "allrequests.html", {'data': data})
 
+def reject(request):
+    if request.method == "POST":
+        # name = request.POST['name']
+        reason = request.POST['state']
+        print(reason)
+        dataobj=Users_request.objects.filter(id=reason)
+        dataobj.update(state="Rejected")
+        # print(dataobj.state)
+       
+        return redirect('/')
+    else:
+       return redirect('/')
 def user_home(request):
     username=request.user.username
     # 
-    data=Users_request.objects.filter(name=username )
+    data=Users_request.objects.filter(name=username).order_by('-id')
     # print(data.date_return)
 
     
@@ -205,8 +231,7 @@ def home(request):
     year = date.strftime("%Y")
     month = date.strftime("%m")
     day = date.strftime("%d")
-    username="ho"
-    context['reqs']= Users_request.objects.filter(state="Pending" )
+    context['reqs']= Users_request.objects.filter(state="Pending")
     
     # request.user.username
   

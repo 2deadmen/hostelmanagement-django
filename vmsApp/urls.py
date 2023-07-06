@@ -38,5 +38,8 @@ urlpatterns = [
     path('report',views.report,name='report-page'),
     path('signup',views.signup,name='signup'),
     path('signin',views.signin,name='signin'),
+    path('reject',views.reject,name='reject'),
+    path('accept',views.accept,name='accept'),
+    path('allrequests',views.allrequests,name='allrequests'),
 
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
