@@ -26,29 +26,40 @@
           <form action='' method="post">
             {% csrf_token %} <!-- Add CSRF token for security -->
              <div class="form-group">
-              <label for="name">Name</label>
+              <label for="name">Username</label>
               <input type="text" class="form-control" id="name" name="name">
             </div> 
             <div class="form-group">
-              <label for="email">reason</label>
-              <input type="text" class="form-control" id="reason" name="reason">
+              <label for="password">password</label>
+              <input type="password" class="form-control" id="reason" name="password">
             </div>
             <div class="form-group">
-              <label for="phone">location</label>
-              <input type="text" class="form-control" id="location" name="location">
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone</label>
-                <input type="text" class="form-control" id="phone" name="phone">
+              <label for="gender">Gender</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault1" value="Male"  checked>
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Male
+                </label>
               </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault2" value="Female">
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Female
+                </label>
+              </div>
+            </div>
             <div class="form-group">
-              <label for="dob">Date of departure</label>
-              <input type="date" class="form-control" id="dod" name="dod" required>
+                <label for="contact">Contact</label>
+                <input type="text" class="form-control" id="contact" name="contact">
+              </div>
+              <div class="form-group">
+                <label for="address">Adress</label>
+                <input type="text" class="form-control" id="add" name="address">
             </div>
             <div class="form-group">
                 <label for="dob">Date of returning</label>
                 <input type="date" class="form-control" id="dor" name="dor" required>
-              </div>
+              </div> 
             <button type="submit" class="btn btn-primary">Submit</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>  
         </form>

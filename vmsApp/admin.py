@@ -5,3 +5,5 @@ from vmsApp import models
 admin.site.register(models.Departments)
 admin.site.register(models.Visitors)
 admin.site.register(models.Users_request)
+admin.site.register(models.Users)
+
