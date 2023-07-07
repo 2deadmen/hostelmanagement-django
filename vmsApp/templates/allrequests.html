@@ -1,9 +1,8 @@
-{% extends 'base.html' %} {%load static %} <!-- If you have a base template, extend it -->
+{% extends 'base.html' %}  {%load static %} <!-- If you have a base template, extend it -->
 
 {% block pageContent %}
-<li class="nav-item">
-    <a class="my-4 nav-link float-right" style="background-color: aliceblue;" aria-current="page" href="{% url 'home-page' %}">HOME</a>
-</li>
+{% block TopNavigation %} {% include "TopNavigation.html" %} {% endblock TopNavigation %}
+
 <div class="row">
     <div style="background-color:aliceblue"><h1 align="center" style="color:black">REQUESTS</h1></div>
     {% for item in data %}
