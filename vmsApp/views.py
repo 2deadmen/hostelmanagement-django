@@ -89,6 +89,7 @@ def user_home(request):
     
 
 def signup(request):
+    
     if request.method == "POST":
         username = request.POST['name']
         password = request.POST['password']
@@ -104,7 +105,10 @@ def signup(request):
             return redirect('signup')
             
         else:
-         
+         contactver=bool(re.match("/(6|7|8|9)\d{10}/",contact))
+         if not contactver:
+           messages.info(request, "enter valid phone number")
+           return redirect('signup')
          if password != password2:
            messages.info(request, "password doesn't match")
            return redirect('signup')
