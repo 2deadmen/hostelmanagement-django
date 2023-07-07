@@ -5,13 +5,24 @@
   <div style="background-color:aliceblue"><h1 align="center" style="color:black">HOSTEL MANAGEMENT</h1>
   <h3 align="center">USER</h3></div>
   <!-- Button trigger modal -->
-  <button type="button" class="float-right btn btn-primary" data-toggle="modal" data-target="#myModal">
-    NEW REQUEST
-  </button>
 
   {% for message in messages %}
   <div class="alert alert-success" role="alert"></div>
   {% endfor %}
+
+
+
+  <a href='logout'>
+  <button type="button" class="float-right btn btn-primary mx-2">
+    lOG OUT
+  </button>
+</a>
+  <button type="button" class="float-right btn btn-primary mx-2" data-toggle="modal" data-target="#myModal">
+    NEW REQUEST
+  </button>
+
+
+
 
  <div class="row">
   <div style="background-color:aliceblue"><h1 align="center" style="color:black">REQUESTS</h1></div>

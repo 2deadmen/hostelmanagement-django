@@ -14,7 +14,7 @@ import re
 
 
 
-
+@login_required
 def context_data(request):
     fullpath = request.get_full_path()
     abs_uri = request.build_absolute_uri()
@@ -29,7 +29,8 @@ def context_data(request):
     }
 
     return context
-    
+
+@login_required  
 def accept(request):
     if request.method == "POST":
         # name = request.POST['name']
@@ -39,12 +40,15 @@ def accept(request):
         return redirect('/')
     else:
         return redirect('/')
-    
+
+@login_required   
 def allrequests(request):
     # 
     data=Users_request.objects.all().order_by('-id')
     return render(request, "allrequests.html", {'data': data})
 
+
+@login_required
 def reject(request):
     if request.method == "POST":
         # name = request.POST['name']
@@ -57,6 +61,8 @@ def reject(request):
         return redirect('/')
     else:
        return redirect('/')
+    
+@login_required
 def user_home(request):
     username=request.user.username
     # 
@@ -111,7 +117,7 @@ def signup(request):
                new_user = Users.objects.create(name = user_model, gender = gender, contact = contact, add = add, date_created = date_created)
                new_user.save()
                messages.info(request, "signup successful")
-               return redirect('signup')
+               return redirect('signin')
          else:
             messages.info(request, "Password must contain one uppercase one lowercase one digit and min 6 digit")
             return redirect('signup')
@@ -158,7 +164,7 @@ def forgot_pass(request):
                user.set_password(password)
                user.save()
                messages.info(request, 'password reset successfully')
-               return redirect('forgot_pass')
+               return redirect('signin')
           else:
                messages.info(request, "Password must contain one uppercase one lowercase one digit and min 6 digit")
                return redirect('forgot_pass') 
@@ -217,7 +223,7 @@ def update_profile(request):
             
     return render(request, 'manage_profile.html',context)
 
-@login_required(login_url='signin')
+@login_required
 def update_password(request):
     context =context_data(request)
     context['page_title'] = "Update Password"
@@ -236,13 +242,18 @@ def update_password(request):
     return render(request,'update_password.html',context)
 
 # Create your views here.
+
 def login_page(request):
     context = context_data(request)
     context['topbar'] = False
     context['footer'] = False
     context['page_name'] = 'login'
     context['page_title'] = 'Login'
-    return render(request, 'login.html', context)
+    #if error comes try this
+    # return render(request, 'login.html', context)
+    #else this
+    return render(request, 'login.html')
+
 
 def login_user(request):
     logout(request)
@@ -255,7 +266,7 @@ def login_user(request):
 
         user = authenticate(username=username, password=password)
         if user is not None:
-            if user.is_active:
+            if user.is_staff:
                 login(request, user)
                 resp['status']='success'
             else:
