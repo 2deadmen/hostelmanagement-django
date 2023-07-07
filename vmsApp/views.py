@@ -90,6 +90,7 @@ def signup(request):
         gender = request.POST['gender']
         contact = request.POST['contact']
         add = request.POST['address']
+        dob = request.POST['dob']
         date_created = datetime.datetime.now
 
         if User.objects.filter(username=username).exists():
@@ -136,6 +137,37 @@ def signin(request):
 
    else:
        return render(request, 'signin.html')
+   
+
+def forgot_pass(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        dob = request.POST['dob']
+        password = request.POST['password']
+        password2 = request.POST['password2']
+        user = User.objects.get(username = username)
+        muser = Users.objects.filter(name = user, dob = dob).first()
+        if muser == None:
+           messages.info(request, 'Credentials Invalid')
+           return redirect('forgot_pass')
+        else:
+          if password != password2:
+             messages.info(request, "password doesn't match")
+             return redirect('forgot_pass')
+          elif len(password) >= 6 and re.search("^[a-zA-Z0-9]+", password) and re.search("[a-z]+", password) and re.search("[A-Z]+", password) and re.search("[0-9]+", password):
+               user.set_password(password)
+               user.save()
+               messages.info(request, 'password reset successfully')
+               return redirect('forgot_pass')
+          else:
+               messages.info(request, "Password must contain one uppercase one lowercase one digit and min 6 digit")
+               return redirect('forgot_pass') 
+
+        
+
+
+    else:
+       return render(request, 'forgot_pass.html')
 
 def userregister(request):
     context = context_data(request)
@@ -185,7 +217,7 @@ def update_profile(request):
             
     return render(request, 'manage_profile.html',context)
 
-@login_required
+@login_required(login_url='signin')
 def update_password(request):
     context =context_data(request)
     context['page_title'] = "Update Password"

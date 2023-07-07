@@ -8,6 +8,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth import get_user_model
+from datetime import datetime
 
 User = get_user_model()
 
@@ -19,6 +20,7 @@ class Users(models.Model):
     gender = models.CharField(max_length=20, choices=(('Male','Male'), ('Female','Female')), default = 'Male')
     contact = models.CharField(max_length=250, null=True, blank = True)
     add = models.CharField(max_length=2000)
+    dob = models.DateField(default=datetime.now)
     date_created = models.DateTimeField(auto_now = True)
     def __str__(self):
         return self.name.username
