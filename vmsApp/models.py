@@ -27,6 +27,7 @@ class Users(models.Model):
 
 
 class Users_request(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=250)
     reason = models.CharField(max_length=500)
     location = models.CharField(max_length=500)
